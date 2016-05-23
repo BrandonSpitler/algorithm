@@ -1,0 +1,45 @@
+import random
+import math
+
+def twoBanks(bankA,bankB,corr):
+	variance=((bankA)*(bankB)*(1-bankA)*(1-bankB))**(.5)
+
+	AB=variance*corr+bankA*(bankB)
+	AIBI=variance*corr+(1-bankA)*(1-bankB)+AB
+	AIB=bankB-AB+AIBI
+	ABI=bankA-AB+AIB
+	print(AIBI)
+		
+	x=random.randint(0,100)/100.00
+	print(x)
+	if(x<AB):
+		x=3
+	elif(x<AIBI):
+		x=0
+	elif(x<AIB):
+		x=2
+	else:
+		x=1
+	return x
+
+
+
+
+countSuccess=[0,0]
+suc=0
+numberOfBanks=2
+for i in range(0,1000000):
+	x=twoBanks(.80,.90,.1)
+	if(x==3):
+		suc=suc+1
+	for t in range(0,2):
+		if(x&1==1):
+			countSuccess[t]=countSuccess[t]+1
+		
+		x=x>>1
+		
+
+print(countSuccess)
+print(suc/1000000)
+
+
